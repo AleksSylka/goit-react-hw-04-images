@@ -42,7 +42,10 @@ export const App = () => {
             setData(prevState => ([...prevState, ...hits]));
             setIsShowBtn(page < Math.ceil(totalHits / pixabayApi.per_page)) 
           })
-          .catch(error => setError(error.message))
+        .catch(err => {
+          setError(err.message);
+          console.log(error);
+        })
         .finally(() => setIsLoading(false));
     }
 
