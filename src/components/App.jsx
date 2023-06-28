@@ -25,10 +25,6 @@ export const App = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    getImages(query, page);
-  }, [query, page])
-
-  const getImages = (query, page) => {
     if (query === '') {
       return;
     }
@@ -47,7 +43,26 @@ export const App = () => {
           console.log(error);
         })
         .finally(() => setIsLoading(false));
-    }
+  }, [query, page, error])
+
+  /* const getImages = (query, page) => {
+    
+    setIsLoading(true);
+      pixabayApi.getPhotoByQuery(query, page)
+          .then(({ data: { totalHits, hits } }) => {
+            if (!hits.length) {
+              return toast(`No photos were found for your query`);
+            }
+            if (page === 1) { toast(`Your query has been found ${totalHits} image`) };
+            setData(prevState => ([...prevState, ...hits]));
+            setIsShowBtn(page < Math.ceil(totalHits / pixabayApi.per_page)) 
+          })
+        .catch(err => {
+          setError(err.message);
+          console.log(error);
+        })
+        .finally(() => setIsLoading(false));
+    } */
 
   const formData = inputData => {
     setQuery(inputData)
